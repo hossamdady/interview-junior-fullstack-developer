@@ -13,15 +13,17 @@
 </div>
 
 
-<div class="row">
+<div class="cityResults">
     <div class="cities" *ngFor="let city of cities | paginate:{
             itemsPerPage: tableSize,
             currentPage:  page,
             totalItems: count}; let i = index">
-        <h3>{{ city.cityName }}</h3>
+        <ul>
+            <li><strong>{{ city.cityName }}</strong></li>
+        </ul>
     </div>
 
-    <div>
+    <div class="pagination">
         <pagination-controls
             previousLabel="Prev"
             nextLabel="Next"

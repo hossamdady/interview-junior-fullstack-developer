@@ -1,10 +1,14 @@
 .title {
     margin-top: 60px;
+    display: flex;
+    justify-content: center;
 }
 
 .search-city {
-    margin-bottom: 200px;
+    margin-bottom: 100px;
     margin-top: 35px;
+    display: flex;
+    justify-content: center;
 }
 
 
@@ -12,18 +16,18 @@
     position: relative;
     background: #eaeaea;
     border-radius: 5px;
-    display: flex;
-    align-items: center;
+    width: 400px;
 }
 
 
 .input-field input {
-    width: 400px;
     font-size: 20px;
     background: transparent;
     border: 0;
     outline: 0;
     padding: 20px 15px; 
+    display: flex;
+    justify-content: center;
 }
 
 
@@ -48,4 +52,22 @@
 
 .submit-button button:hover {
     transform: translateY(-6px)
+}
+
+
+.cityResults {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cities {
+    font-size: 20px;
+    align-items: center;
+}
+
+.pagination {
+    font-size: 15px;
+    margin-top: 40px;
 }

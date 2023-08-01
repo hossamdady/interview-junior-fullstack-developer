@@ -14,10 +14,19 @@
 
 
 <div class="row">
-    <div class="cities" *ngFor="let city of cities">
+    <div class="cities" *ngFor="let city of cities | paginate:{
+            itemsPerPage: tableSize,
+            currentPage:  page,
+            totalItems: count}; let i = index">
         <h3>{{ city.cityName }}</h3>
     </div>
 
-    <mat-paginator [length]="cities.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
-
+    <div>
+        <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+            (pageChange)="onTableDataChange($event)"
+        >
+        </pagination-controls>
+    </div>
 </div>

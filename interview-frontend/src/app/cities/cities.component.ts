@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CitiesService } from './cities.service';
 import { City } from '../interfaces/city';
-import { MatPaginator } from '@angular/material/paginator';
 
 
 @Component({
@@ -12,7 +11,12 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 
 export class CitiesComponent implements OnInit {
-
+  
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 5;
+  tableSizes: any = [5, 10, 15, 20];
+  
   city: City = {
     uuid: '',
     cityName: '',
@@ -22,9 +26,6 @@ export class CitiesComponent implements OnInit {
   cities$: Observable<any> | undefined;
 
   cities: City[] = [];
-  citiesToDisplay: City[] = [];
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private citiesService: CitiesService) {}
 
@@ -36,24 +37,15 @@ export class CitiesComponent implements OnInit {
     this.citiesService.getCities()
       .subscribe(
         res => {
-          this.cities = res.filter(elem => elem.cityName.startsWith(this.city.cityName));
-          console.log(this.cities);
+          this.cities = res.filter(elem => elem.cityName.toLocaleLowerCase().startsWith(this.city.cityName.toLocaleLowerCase()));
         }, 
         err => console.log(err)
       );
   }
 
-  paginateCities() {
-    this.paginator.pageIndex = 0; // Reset the paginator to the first page
-    this.paginator.pageSize = 5; // Set the number of items to display per page
-    this.paginator._changePageSize(this.paginator.pageSize);
-    this.updateDisplayedCities();
-  }
-
-  updateDisplayedCities() {
-    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    const endIndex = startIndex + this.paginator.pageSize;
-    this.citiesToDisplay = this.cities.slice(startIndex, endIndex);
+  onTableDataChange(event: any){
+    this.page = event;
+    this.submitCity();
   }
 
 }
